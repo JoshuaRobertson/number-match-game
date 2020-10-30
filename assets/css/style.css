@@ -16,6 +16,7 @@ h3 {
 
 img {
   width: 100%;
+  max-width: 50rem;
   border-radius: 3rem;
 }
 
@@ -31,6 +32,10 @@ button {
 
 button:nth-child(2) {
   border: .2rem solid rgb(241, 152, 152);
+}
+
+.text-center {
+  text-align: center;
 }
 
 #game-area {
