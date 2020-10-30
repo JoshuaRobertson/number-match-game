@@ -82,6 +82,10 @@ const images = [
   },
 ];
 
+let currentImgValue = 0,
+    displayNumber = 0,
+    score = 0;
+
 // Set the image source
 const setImgSrc = (randomImgName) => {
   const imageContainer = document.getElementById('imageContainer')
@@ -100,11 +104,14 @@ const generateDisplayNumber = (numberOfItems, plusOrMinus) => {
   if (split === 0) {
     // display real number
     document.getElementById('number').innerHTML = numberOfItems
+    displayNumber = numberOfItems
   }
   else {
     // display one higher or one lower
     document.getElementById('number').innerHTML = `${numberOfItems + plusOrMinus}`
+    displayNumber = numberOfItems + plusOrMinus
   }
+  currentImgValue = numberOfItems
 }
 
 const generatePlusOrMinus = () => {
@@ -137,6 +144,17 @@ const generate = () => {
   generateDisplayNumber(numberOfItems, plusOrMinus)
 
   images.splice(randomNumber, 1)
+}
+
+// Handle player's score
+const match = () => {
+  currentImgValue === displayNumber ? score++ : score--
+  document.getElementById('currentScore').innerHTML = score
+}
+
+const noMatch = () => {
+  currentImgValue != displayNumber ? score++ : score--
+  document.getElementById('currentScore').innerHTML = score
 }
 
 // Start & stop image cycle timer
