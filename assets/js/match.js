@@ -82,14 +82,8 @@ const images = [
   },
 ];
 
-// Generate random image on page load & after time delay
-const generate = () => {
-  if (image.length === 0) {
-    stopTimer()
-    return
-  }
-  const randomNumber   = Math.floor(Math.random() * images.length)
-  const randomImgName  = images[randomNumber].image_name
+// Set the image source
+const setImgSrc = (randomImgName) => {
   const imageContainer = document.getElementById('imageContainer')
   const image          = document.createElement('img')
 
@@ -98,6 +92,43 @@ const generate = () => {
   }
   image.src = `assets/img/${randomImgName}`
   imageContainer.appendChild(image)
+}
+
+const generateDisplayNumber = (numberOfItems, plusOrMinus) => {
+  const split = Math.floor(Math.random() * 2)
+
+  if (split === 0) {
+    // display real number
+    document.getElementById('number').innerHTML = numberOfItems
+  }
+  else {
+    // display one higher or one lower
+    document.getElementById('number').innerHTML = `${numberOfItems + plusOrMinus}`
+  }
+}
+
+const generatePlusOrMinus = () => {
+  const number = Math.floor(Math.random() * 2)
+  return number === 0 ? -1 : +1
+}
+
+// Generate random image on page load & after time delay
+const generate = () => {
+  if (images.length === 0) {
+    stopTimer()
+    return
+  }
+
+  const randomNumber  = Math.floor(Math.random() * images.length)
+  const randomImgName = images[randomNumber].image_name
+
+  setImgSrc(randomImgName)
+
+  const plusOrMinus = generatePlusOrMinus()
+  const numberOfItems = images[randomNumber].number_of_items
+
+  generateDisplayNumber(numberOfItems, plusOrMinus)
+
   images.splice(randomNumber, 1)
 }
 
