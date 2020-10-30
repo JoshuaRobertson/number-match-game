@@ -112,6 +112,12 @@ const generatePlusOrMinus = () => {
   return number === 0 ? -1 : +1
 }
 
+const setImgName = (randomImgName) => {
+  const imageName = randomImgName.slice(0, randomImgName.length - 4)
+
+  document.getElementById('item-name').innerHTML = imageName.replace(/-/g, ' ') + '?'
+}
+
 // Generate random image on page load & after time delay
 const generate = () => {
   if (images.length === 0) {
@@ -123,6 +129,7 @@ const generate = () => {
   const randomImgName = images[randomNumber].image_name
 
   setImgSrc(randomImgName)
+  setImgName(randomImgName)
 
   const plusOrMinus = generatePlusOrMinus()
   const numberOfItems = images[randomNumber].number_of_items
