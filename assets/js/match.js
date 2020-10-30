@@ -1,3 +1,4 @@
+// Get array of images & items total
 const images = [
   {
     image_name: 'bananas.jpg',
@@ -81,10 +82,37 @@ const images = [
   },
 ];
 
-const randomNumber   = Math.floor(Math.random() * images.length)
-const randomImgName  = images[randomNumber].image_name
-const imageContainer = document.getElementById('imageContainer')
-const image          = document.createElement('img')
+// Generate random image on page load & after time delay
+const generate = () => {
+  if (image.length === 0) {
+    stopTimer()
+    return
+  }
+  const randomNumber   = Math.floor(Math.random() * images.length)
+  const randomImgName  = images[randomNumber].image_name
+  const imageContainer = document.getElementById('imageContainer')
+  const image          = document.createElement('img')
 
-image.src = `assets/img/${randomImgName}`
-imageContainer.appendChild(image)
+  if (imageContainer.hasChildNodes()) {
+    imageContainer.removeChild(imageContainer.firstElementChild)
+  }
+  image.src = `assets/img/${randomImgName}`
+  imageContainer.appendChild(image)
+  images.splice(randomNumber, 1)
+}
+
+// Start & stop image cycle timer
+let timerRef
+
+const timer = () => {
+  timerRef = setInterval(generate, 2500)
+}
+
+const stopTimer = () => {
+  clearInterval(timerRef)
+}
+
+const play = () => {
+  generate()
+  timer()
+}
