@@ -84,7 +84,8 @@ const images = [
 
 let currentImgValue = 0,
     displayNumber = 0,
-    score = 0;
+    score = 0,
+    totalAvailable = images.length;
 
 // Set the image source
 const setImgSrc = (randomImgName) => {
@@ -128,6 +129,7 @@ const setImgName = (randomImgName) => {
 // Generate random image on page load & after time delay
 const generate = () => {
   if (images.length === 0) {
+    endGame()
     stopTimer()
     return
   }
@@ -161,7 +163,7 @@ const noMatch = () => {
 let timerRef
 
 const timer = () => {
-  timerRef = setInterval(generate, 2500)
+  timerRef = setInterval(generate, 3000)
 }
 
 const stopTimer = () => {
@@ -169,6 +171,19 @@ const stopTimer = () => {
 }
 
 const play = () => {
+  document.getElementById('message').style.display = 'none'
+  document.getElementById('startScreen').style.display = 'none'
+  document.getElementById('playButton').style.display = 'none'
+
   generate()
   timer()
+}
+
+const endGame = () => {
+  document.getElementById('message').style.display = 'block'
+  document.getElementById('imageContainer').style.display = 'none'
+  document.getElementById('statsContent').style.display = 'none'
+
+  document.getElementById('message').innerHTML = `Game over, your score is ${score} / ${totalAvailable}`
+  setTimeout(() => location.reload(), 3000)
 }
