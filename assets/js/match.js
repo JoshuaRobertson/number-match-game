@@ -82,10 +82,23 @@ const images = [
   },
 ];
 
+const timeDelay = 3000
+
 let currentImgValue = 0,
     displayNumber = 0,
     score = 0,
-    totalAvailable = images.length;
+    totalAvailable = images.length,
+    chosen = false;
+
+// Hide score before game starts
+document.getElementById('statsContent').style.visibility = 'hidden'
+
+// Set the score & total in the UI
+document.getElementById('currentScore').innerHTML = score
+document.getElementById('totalAvailable').innerHTML = totalAvailable
+
+// Display the timer setting
+document.getElementById('timeSetting').innerHTML = timeDelay / 1000
 
 // Set the image source
 const setImgSrc = (randomImgName) => {
@@ -134,6 +147,8 @@ const generate = () => {
     return
   }
 
+  chosen = false
+
   const randomNumber  = Math.floor(Math.random() * images.length)
   const randomImgName = images[randomNumber].image_name
 
@@ -150,20 +165,26 @@ const generate = () => {
 
 // Handle player's score
 const match = () => {
-  currentImgValue === displayNumber ? score++ : score--
-  document.getElementById('currentScore').innerHTML = score
+  if (!chosen) {
+    currentImgValue === displayNumber ? score++ : score--
+    chosen = true
+    document.getElementById('currentScore').innerHTML = score
+  }
 }
 
 const noMatch = () => {
-  currentImgValue != displayNumber ? score++ : score--
-  document.getElementById('currentScore').innerHTML = score
+  if (!chosen) {
+    currentImgValue != displayNumber ? score++ : score--
+    chosen = true
+    document.getElementById('currentScore').innerHTML = score
+  }
 }
 
 // Start & stop image cycle timer
 let timerRef
 
 const timer = () => {
-  timerRef = setInterval(generate, 3000)
+  timerRef = setInterval(generate, timeDelay)
 }
 
 const stopTimer = () => {
@@ -174,12 +195,14 @@ const play = () => {
   document.getElementById('message').style.display = 'none'
   document.getElementById('startScreen').style.display = 'none'
   document.getElementById('playButton').style.display = 'none'
+  document.getElementById('statsContent').style.visibility = 'visible'
 
   generate()
   timer()
 }
 
 const endGame = () => {
+  document.getElementById('statsContent').style.visibility = 'hidden'
   document.getElementById('message').style.display = 'block'
   document.getElementById('imageContainer').style.display = 'none'
   document.getElementById('statsContent').style.display = 'none'
