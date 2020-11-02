@@ -109,6 +109,7 @@ const setImgSrc = (randomImgName) => {
     imageContainer.removeChild(imageContainer.firstElementChild)
   }
   image.src = `assets/img/${randomImgName}`
+  image.classList.add('fade')
   imageContainer.appendChild(image)
 }
 
