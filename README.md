@@ -4,7 +4,7 @@ Designed in HTML & CSS, developed in JavaScript.
 
 ## :pushpin: Summary
 
-Browser based game where you decide if the number of items on the image matches the displayed number.
+Browser based game where you decide if the number of items in the image matches the displayed number. You only have a few seconds to decide so think fast.
 
 ## :point_right: Demo
 
